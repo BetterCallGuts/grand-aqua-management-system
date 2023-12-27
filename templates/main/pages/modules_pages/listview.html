@@ -1,0 +1,183 @@
+{% extends "main/base.html" %}
+{% load static %}
+
+
+{% block title %}{{chosen }} list {% endblock title %}
+
+{% block content %}
+
+<section
+class="
+py-3 px-10
+flex flex-col
+gap-10
+"
+>
+<form action="{% url 'core:delete-view' chosen %}" method="post">
+<div 
+class="
+section__header
+flex
+justify-between
+mb-5
+"
+>
+{% csrf_token %}
+  <!--  -->
+  <a 
+  href="{% url 'core:add-view' chosen %}"
+  class="
+  block
+  w-fit
+  bg-green-200
+  px-3
+  py-1
+  rounded
+  border
+  border-black
+  hover:scale-[1.1]
+  transition-all
+  "
+  >اضافة عنصر</a>
+
+  <input type="submit" class="
+  bg-red-300
+  rounded
+  px-3
+  py-1
+  border
+  border-black
+  hover:scale-[1.1]
+  transition-all
+
+  " value="مسح العناصر؟">
+
+  <!--  -->
+</div>
+
+{% for me in messages %}
+<div class="flex mx-auto justify-center bg-green-300 py-1 my-2">
+  {% if me %}
+  {{me}}
+  {% else %}
+  {% endif %}
+</div>
+{% comment %} كنت انتظرها {% endcomment %}
+  {% endfor %}
+<div
+class="
+section__table
+
+border
+border-black
+rounded
+py-2
+px-4
+"
+>
+
+<!-- firs row -->
+<div
+class="grid
+mb-10
+grid-cols-4"
+>
+{% if chosen == "warehouse" %}
+<span class="flex justify-center border-r border-black">اسم المخزن</span>
+<span class="flex justify-center border-r border-black">عنوانه</span>
+<span class="flex justify-center border-r border-black">داخل المخزن</span>
+<span class="flex justify-center border-r ">اقصي كم</span>
+</div>
+<!-- <span>2</span> -->
+
+<!--  -->
+{% for i in data %}
+<div class="flex w-[100%]">
+
+  <input type="checkbox" name="{{i.pk}}">
+  <a 
+href="{% url 'core:detail-view' chosen i.pk %}"
+class="grid
+grid-cols-4
+ w-[100%]
+transition-all
+px-3
+py-1
+rounded
+hover:bg-gray-300
+"
+>
+
+<span class="flex justify-center border-r border-black">
+  {{i.name}}
+</span>
+
+<span class="flex border-r border-black justify-center">{{i.address|truncatechars:5}}</span>
+<span
+class="{% if i.amount_init > i.max_amount %}bg-red-300{% endif %}  rounded py-1 
+flex justify-center
+
+"
+>
+{{i.amount_init}}
+</span>
+<span class="flex justify-center">{{ i.max_amount }}</span>
+</a>
+</div>
+{% endfor %}
+
+
+</div>
+
+{% elif chosen == "products" %}
+<span class="flex justify-center border-r border-black">اسم المنتج</span>
+<span class="flex justify-center border-r border-black">نوعه</span>
+<span class="flex justify-center border-r border-black">الكمية</span>
+<span class="flex justify-center border-r ">سعره</span>
+</div>
+<!-- <span>2</span> -->
+
+<!--  -->
+{% for i in data %}
+<div class="flex w-[100%]">
+
+  <input type="checkbox" name="{{i.pk}}">
+  <a 
+href="{% url 'core:detail-view' chosen i.pk %}"
+class="grid
+grid-cols-4
+ w-[100%]
+transition-all
+px-3
+py-1
+rounded
+hover:bg-gray-300
+"
+>
+
+<span class="flex justify-center border-r border-black">
+  {{i.name}}
+</span>
+
+<span class="flex border-r border-black justify-center">{{i.p_type.name}}</span>
+<span
+class="  rounded py-1 
+flex justify-center
+
+"
+>
+{{i.amount}}
+</span>
+<span class="flex justify-center">{{ i.salary }}</span>
+</a>
+</div>
+{% endfor %}
+
+
+</div>
+
+{% endif %}
+</form>
+</section>
+
+{% endblock content %}

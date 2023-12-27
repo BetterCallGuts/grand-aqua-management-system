@@ -1,0 +1,25 @@
+<nav class="h-screen border-l-2 w-[20%]  border-black">
+
+  <div>
+    <ul class="px-5 pt-5 flex flex-col gap-5">
+      <li class="border-b-2 flex justify-center border-black">
+        <a href="/{{chosen}}/">
+
+
+          نظرة عامة
+        </a>
+      
+      </li>
+      <li
+      class="border-b-2 border-black flex justify-center"
+      >
+    <a href="{% url 'core:list-view' chosen %}">
+
+      عرض الجميع
+    </a>
+    </li> 
+
+    </ul>
+  </div>
+
+</nav>

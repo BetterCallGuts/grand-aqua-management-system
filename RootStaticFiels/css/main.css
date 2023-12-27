@@ -1,0 +1,7 @@
+body aside img.brand-image{
+  box-shadow: none !important;
+}
+
+footer.main-footer.text-sm div.float-right.d-none.d-sm-inline{
+  display: none;
+}
