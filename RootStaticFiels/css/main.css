@@ -4,4 +4,5 @@ body aside img.brand-image{
 
 footer.main-footer.text-sm div.float-right.d-none.d-sm-inline{
   display: none;
+  visibility: hidden  ;
 }

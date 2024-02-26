@@ -8,7 +8,7 @@ from django.contrib.auth       import logout, login
 def login_page(req:HttpRequest):
   
   if req.user.is_authenticated:
-    return redirect('core:landing')
+    return redirect('/web')
 
   
   if req.method == "POST":
@@ -18,7 +18,7 @@ def login_page(req:HttpRequest):
       
       login(req, form.get_user())
 
-      return redirect('core:landing')
+      return redirect('/web')
     else:
       
       form  = AuthenticationForm()

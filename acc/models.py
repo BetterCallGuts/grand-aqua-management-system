@@ -7,6 +7,12 @@ from django.contrib.auth.models import User, Group
 
 
 
+
+# --------------------------------
+
+
+
+
 class acc(models.Model):
 
   ch = (
@@ -26,7 +32,7 @@ class acc(models.Model):
   
   def photo_for_man(self):
       
-      return mark_safe(f"<img src='/static/{self.pers_pho.url}' alt='person_photo' style='width:400px;height=400px;'  />")
+      return mark_safe(f"<img src='{self.pers_pho.url}' alt='person_photo' style='width:300px;height=300px;border-radius:7px;box-shadow:0 0 10px black;'  />")
   
   photo_for_man.short_description = "الصورة"
   def __str__(self):
@@ -35,12 +41,33 @@ class acc(models.Model):
     verbose_name_plural = "الأشخاص"
 
 
+
+class absent(models.Model):
+  fr = models.ForeignKey(acc,
+      on_delete=models.CASCADE,
+      verbose_name="الحساب"
+      )
+  hmd= models.FloatField(verbose_name="عدد ايام الغياب")
+  startdate = models.DateField(default=datetime.now, verbose_name="يبدأ من يوم")
+  
+  
+  class Meta:
+    verbose_name = "غائب"
+    verbose_name_plural = "غيابات"
+
+
+
+
+
+
+
+# ------------------------------------
 class CustomUser(User):
     class Meta:
         proxy = True
         app_label = 'acc'
-        verbose_name = 'الحسابات الشخصية للموقع'
-        verbose_name_plural = 'الحسابات الشخصية للموقع'
+        verbose_name = 'الحسابات الشخصية '
+        verbose_name_plural = 'الحسابات الشخصية '
         User.username.verbose_name = "اسم المستخدم"
 
 class CustomGroup(Group):

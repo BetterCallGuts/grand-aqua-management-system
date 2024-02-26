@@ -1,0 +1,203 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'css/admintheme.css' %}">
+    <link rel="stylesheet" href="{% static 'css/datatable_bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'css/datatable_bootstrap2.css' %}">
+    <link rel="stylesheet" href="{% static 'css/fontawsom.css' %}">
+    <link rel="stylesheet" href="{% static 'css/ionicons.css' %}">
+    <link rel="stylesheet" href="{% static 'css/place-orders-style.css' %}">
+    
+    <title>POS</title>
+</head>
+<body class="hold-transition sidebar-mini layout-fixed">
+{% csrf_token %}
+<div class="wrapper">
+   
+      <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1 class="m-0 text-dark">Place Order</h1>
+                        <h4>
+                            <a href="/">Home</a>
+                        </h4>
+                    </div>
+                  </div>
+            </div>
+        </div>
+        <section class="content">
+            <div class="container-fluid">
+              <div class="row">
+                    <section class="col-12 col-lg-6">
+                        <div class="card card-primary">
+                            <div class="card-header">
+                                <h3 class="card-title">Order Details</h3>
+                            </div>
+
+                            
+
+                            <form role="form" action="#" method="post" enctype="application/x-www-form-urlencoded">
+                                <div class="card-body">
+                                    
+                                   
+                                        <div class="form-group">
+                                            <label>الزبون</label>
+                                            <input
+                                            
+                                            
+                    id="zbon"
+                    class="form-control search-filter custom-select" 
+                    tabindex="-1" aria-hidden="true" name="customer"
+                    list="cu"
+                    />
+                                                <datalist id="cu">
+
+                                                    
+                                                    {% for choice in choices %}
+                                                    {% if choice.name %}
+                                                    <option  data-name="{{ choice.name }}" value="{{ choice.name }}" >
+                                                        {{ choice.name }}
+                                                    </option>
+
+                                                    {% endif %}
+                                                    {% endfor %}
+                                                </datalist>
+                                            
+                                                
+                                        </div>
+                    
+                                   
+                                        
+                                            <div class="form-group">
+                                                <label>المنتج</label>
+                                                <input
+                                                
+                                                id="cmb-code" 
+                                                name="product" 
+                                                class="custom-select"
+                                                list="pro"
+
+                                                />
+                                                   
+                                                <!--  -->
+                                                <datalist id="pro">
+
+                                                    
+                                                    {% for p in products %}
+                                                    <option value="{{p.name}}">{{p.name}}</option>
+                                                    {% endfor %}
+                                                </datalist>
+                                                <!--  -->
+                                                {% for c in products %}
+
+                                                <input type="number" id="{{c.name}}" value="{{c.salary}}" hidden  >
+                                                {% endfor %}
+                                            </div>
+                                       
+                                        
+                                    
+                                    <div class="form-group">
+                                        <label for="txt-qtyOnHand">الكمية</label>
+                                        <input name="txt-qtyOnHand" value="1"  type="number" class="form-control" id="txt-qtyOnHand" placeholder="الكمية">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txt-price">تخفيضات</label>
+                                        <input name="txt-price" value="0" type="number" class="form-control" id="txt-price" placeholder="تخفيضات">
+                                    </div>
+                                    
+                                </div>
+
+                                
+                                <div class="card-footer">
+                                    <button type="button" id="btn-save" class="btn btn-primary">Save</button>
+                                    <button type="reset" id="btn-clear" class="btn btn-warning">Reset</button>
+                                </div>
+                            </form>
+
+
+
+
+                        </div>
+                    </section>
+                    <section class="col-12 col-lg-6">
+                        <div id="tbl-card" class="card">
+                            <div class="card-body">
+                                <table id="tbl-orders" class="table table-bordered table-hover">
+                                    <thead>
+                                    <th id="th-code">الزبون</th>
+                                    <th id="th-desc">المنتج</th>
+                                    <th id="th-qty">الكمية</th>
+                                    <th id="th-price">التخفيضات</th>
+                                    <th id="th-total">المجموع</th>
+                                    <th></th>
+                                    </thead>
+                                    <tbody>
+<!--                                    <tr>-->
+<!--                                        <td>I001</td>-->
+<!--                                        <td>Soap</td>-->
+<!--                                        <td>5</td>-->
+<!--                                        <td>70</td>-->
+<!--                                        <td>70</td>-->
+<!--                                        <td><i class="fas fa-trash"></i></td>-->
+<!--                                    </tr>-->
+
+                                    </tbody>
+                                    <tfoot></tfoot>
+                                </table>
+                            </div>
+                            <div class="card-footer">
+                                <button type="button" id="btn-placeorder" class="btn btn-primary">ارسل الفاتورة</button>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+                <!-- /.row (main row) -->
+            </div><!-- /.container-fluid -->
+        </section>
+        <!-- /.content -->
+    
+    <!-- /.content-wrapper -->
+    <footer class="main-footer">
+        <strong>omarhosnay09@gmail.com</strong>
+        All rights reserved.
+        <div class="float-right d-none d-sm-inline-block">
+            
+        </div>
+    </footer>
+</div>
+
+<script src="{% static 'js/popper.min.js' %}"></script>
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script src="{% static 'js/place-order-controller.js' %}"></script>
+<script src="{% static 'js/jquery-ui.min.js' %}"></script>
+<script>
+    $.widget.bridge('uibutton', $.ui.button)
+</script>
+<script src="{% static 'js/bootstrap.bundle.js' %}"></script>
+<!-- DataTables -->
+<script src="{% static 'js/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'js/dataTables.bootstrap4.min.js' %}"></script>
+<script src="{% static 'js/dataTables.responsive.min.js' %}"></script>
+<script src="{% static 'js/responsive.bootstrap4.min.js' %}"></script>
+<!-- AdminLTE App -->
+<script src="{% static 'js/adminlte.js' %}"></script>
+
+<script>
+    $(function () {
+        $("#tbl-items").DataTable({
+            "ordering" : false,
+            "lengthChange" :false,
+            "pageLength" :8,
+            "responsive": true,
+            "autoWidth": false,
+        });
+    });
+</script>
+</body>
+</html>

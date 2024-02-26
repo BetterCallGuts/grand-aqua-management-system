@@ -49,12 +49,13 @@ class saler(models.Model):
 class Products(models.Model):
   
   
-  p_type     = models.ForeignKey(ProductTypes, on_delete=models.SET_NULL, null=True, verbose_name="نوع المنتج")
-  name       = models.CharField(max_length=255, verbose_name="اسم المنتج")
-  amount     = models.IntegerField(verbose_name="الكمية")
-  salary     = models.FloatField(default=0, verbose_name="سعره للواحد")
-  got_it_from= models.ForeignKey(saler, verbose_name='تم شرائه من',  blank=True, null=True, on_delete=models.SET_NULL)
- 
+  p_type      = models.ForeignKey(ProductTypes, on_delete=models.SET_NULL, null=True, verbose_name="نوع المنتج")
+  name        = models.CharField(max_length=255, verbose_name="اسم المنتج")
+  amount      = models.IntegerField(verbose_name="الكمية")
+  salary      = models.FloatField(default=0, verbose_name="سعره للواحد")
+  got_it_from = models.ForeignKey(saler, verbose_name='تم شرائه من',  blank=True, null=True, on_delete=models.SET_NULL)
+  shop_in     = models.ForeignKey("Shop", on_delete=models.SET_NULL, verbose_name="المحل", null=True, blank=True)
+
   def i_am_in(self):
     rel = WarehouseProductRel.objects.filter(products=self)
 
@@ -171,7 +172,7 @@ class zabon(models.Model):
         for s in product:
           # try:
             result += (s.salary * i.how_many)
-          # except:
+          # except: 
           #   pass
       # except:
       #   pass
@@ -187,6 +188,7 @@ class sales(models.Model):
   what_got_saled = models.ForeignKey(Products, verbose_name='المنتج', null=True, blank=True, on_delete=models.CASCADE)
   how_many       = models.FloatField(default=0, verbose_name='الكمية')
   who_bought     = models.ForeignKey(zabon, verbose_name='الزبون', null=True, blank=True, on_delete=models.CASCADE)
+  deduction      = models.FloatField(default=0, verbose_name="خصومات", )
   time_added     = models.DateTimeField(default=datetime.now, editable=False, verbose_name="وقت الاضافة")
   
   
@@ -220,3 +222,42 @@ class fwater(models.Model):
   class Meta:
     verbose_name= "فاتورة"
     verbose_name_plural = "فواتير"
+    
+    
+    
+  
+  
+
+
+class Shop(models.Model):
+  name = models.CharField(max_length=255, verbose_name="اسم المحل")
+  addr = models.TextField(null=True, blank=True, verbose_name="عنوان المحل")
+  
+  def how_many_in_me(self):
+    items = Products.objects.filter(shop_in=self)
+    
+    return len(items)
+  how_many_in_me.short_description = "عدد المنتجات"
+  
+  def __str__(self):
+    return f"{self.name}"
+  
+  class Meta:
+    
+    verbose_name = "المحل"
+    verbose_name_plural = "المحلات"
+    
+    
+
+class Factory(models.Model):
+  
+  name   = models.CharField(max_length=255, verbose_name="اسم المصنع",)
+  addr   = models.TextField(verbose_name="عنوان المصنع", blank=True, null=True)
+  spic   = models.ForeignKey(Products, blank=True, null=True, verbose_name="التخصص",on_delete=models.SET_NULL)
+
+  
+  class Meta:
+    verbose_name = "مصنع"
+    verbose_name_plural = "المصانع"
+  def __str__(self):
+    return f"{self.name}"

@@ -44,7 +44,7 @@ class CustomUSerAdmin(UserAdmin):pass
 
 admin.site.register(CustomUser, CustomUSerAdmin)
 admin.site.register(CustomGroup, GroupAdmin)
-admin.site.register(acc , AccAdminStyle)
+# admin.site.register(acc , AccAdminStyle)
 
 
 

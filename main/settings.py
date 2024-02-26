@@ -10,14 +10,10 @@ USE_I18N            = True
 USE_L10N            = True
 USE_TZ              = True
 DEFAULT_AUTO_FIELD  = 'django.db.models.BigAutoField'
-STATIC_URL          = '/static/'
-STATIC_ROOT         = os.path.join(BASE_DIR,'RootStaticFiels')
-STATICFILES_DIRS    = [os.path.join(BASE_DIR,'StatiFilesDirs')]
-MEDIA_URL           = '/media/'
-MEDIA_ROOT          = os.path.join(BASE_DIR, 'mediafiles')
 
 
 INSTALLED_APPS = [
+# 'admin_tools_stats',
 
 "jazzmin",
 'django.contrib.admin',
@@ -28,6 +24,7 @@ INSTALLED_APPS = [
 'django.contrib.staticfiles',
 'core',
 'acc',
+"rangefilter",
 
 
 ]
@@ -120,7 +117,7 @@ JAZZMIN_SETTINGS = {
 
 
 
-# JAZZMIN_SETTINGS["show_ui_builder"] = True
+JAZZMIN_SETTINGS["show_ui_builder"] = False
 
 
 JAZZMIN_UI_TWEAKS = {
@@ -155,3 +152,9 @@ JAZZMIN_UI_TWEAKS = {
     }
 }
 # "order_with_respect_to" : ['core.modelname', ...]
+
+STATIC_URL          = '/static/'
+STATIC_ROOT         = os.path.join(BASE_DIR,'RootStaticFiels')
+STATICFILES_DIRS    = [os.path.join(BASE_DIR,'StatiFilesDirs')]
+MEDIA_URL           = '/media/'
+MEDIA_ROOT          = os.path.join(BASE_DIR, 'mediafiles')
