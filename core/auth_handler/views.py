@@ -6,38 +6,38 @@ from django.contrib.auth       import logout, login
 
 
 def login_page(req:HttpRequest):
-  
-  if req.user.is_authenticated:
     return redirect('/web')
+  # if req.user.is_authenticated:
+  #   return redirect('/web')
 
   
-  if req.method == "POST":
-    form = AuthenticationForm(req, data=req.POST)
+  # if req.method == "POST":
+  #   form = AuthenticationForm(req, data=req.POST)
     
-    if form.is_valid():
+  #   if form.is_valid():
       
-      login(req, form.get_user())
+  #     login(req, form.get_user())
 
-      return redirect('/web')
-    else:
+  #     return redirect('/web')
+  #   else:
       
-      form  = AuthenticationForm()
-      error = "تأكد من اسمك و كلمة المرور"
+  #     form  = AuthenticationForm()
+  #     error = "تأكد من اسمك و كلمة المرور"
       
-      data = {
-        'form' : form,
-        "error" : error
-      }
-      return render(req, "main/auth_pages/login.html", data)
+  #     data = {
+  #       'form' : form,
+  #       "error" : error
+  #     }
+  #     return render(req, "main/auth_pages/login.html", data)
 
     
-  form  = AuthenticationForm()
+  # form  = AuthenticationForm()
   
   
-  data = {
-    'form' : form
-  }
-  return render(req, "main/auth_pages/login.html", data)
+  # data = {
+  #   'form' : form
+  # }
+  # return render(req, "main/auth_pages/login.html", data)
 
 
 
